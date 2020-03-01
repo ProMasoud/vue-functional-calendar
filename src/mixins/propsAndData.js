@@ -125,9 +125,27 @@ export const propsAndData = {
         isDark: {
             type: Boolean,
             default: undefined
+        },
+        calendarType: {
+            type: String,
+            default: 'jalali'
         }
     },
     data() {
+        let calendarType = 'jalali'; // types: jalali, georgian
+        let monthNames = () => {
+            if (calendarType === 'jalali'){
+                return  ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"]
+            }
+            return  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        };
+        let dayNames = () => {
+            if (calendarType === 'jalali'){
+                return  ['د', 'س', 'چ', 'پ', 'ج', 'ش', 'ی']
+            }
+            return  ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
+        };
+
         return {
             defaultDateFormat: {
                 date: false,
@@ -184,6 +202,7 @@ export const propsAndData = {
             allowNextDate: true,
             listCalendars: [],
             fConfigs: {
+                calendarType, // types: jalali, georgian
                 sundayStart: false,
                 placeholder: false,
                 dateFormat: 'dd/mm/yyyy',
@@ -218,8 +237,8 @@ export const propsAndData = {
                 disabledDates: [],
                 disabledDayNames: [],
 
-                dayNames: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-                monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                dayNames: dayNames(),
+                monthNames: monthNames(),
                 shortMonthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 
                 showWeekNumbers: false,

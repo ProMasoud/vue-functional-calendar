@@ -1,11 +1,12 @@
+import Converter from "./converter";
 Date.prototype.getWeekNumber = function (sundayStart) {
     if(!sundayStart){
         // ISO week date weeks start on monday
         // so correct the day number
-        let dayNumber   = (this.getDay() + 6) % 7;
+        let dayNumber   = (new Converter(this).day() + 6) % 7;
         // Set the target to the thursday of this week so the
         // target date is in the right year
-        this.setDate(this.getDate() - dayNumber + 3);
+        this.setDate(new Converter(this).date() - dayNumber + 3);
     }
 
     let january4 = new Date(this.getFullYear(), 0, 4);
